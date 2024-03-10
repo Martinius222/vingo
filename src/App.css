@@ -63,7 +63,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: rollIn 5s ease-in-out 0s 1 normal forwards;;
+  animation: rollIn 5s ease-in-out 0s 1 normal forwards
 }
 
 .extracted-number {
@@ -178,7 +178,7 @@
 	0% {
 		animation-timing-function: ease-in;
 		opacity: 1;
-		transform: translateX(1148px);
+		transform: translateX(1148px) rotate(360deg);
 	}
 
 	14% {
