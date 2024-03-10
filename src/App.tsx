@@ -11,7 +11,7 @@ const CircleGrid: React.FC = () => {
   const [circles, setCircles] = useState<Circle[]>([]);
   const [currentNumber, setCurrentNumber] = useState<Circle | undefined>()
   const [inputValue, setInputValue] = useState<string>('');
-  const [errorMessage, setErrorMessage] = useState<string>('')
+  const [errorMessage, setErrorMessage] = useState<string | null>('')
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
@@ -28,7 +28,9 @@ const CircleGrid: React.FC = () => {
         
         setErrorMessage("Number seems to have already been extracted")
         return
-      }
+    } else {
+      setErrorMessage(null)
+    }
     if (!inputValue.trim()) return; 
 
     const newCircle: Circle = {
