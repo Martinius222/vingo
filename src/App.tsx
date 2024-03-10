@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './App.css'; // Make sure the path matches your CSS file
+import './App.css';
 
 interface Circle {
   id: number;
@@ -13,12 +13,17 @@ const CircleGrid: React.FC = () => {
   const [inputValue, setInputValue] = useState<string>('');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
+    const newValue = event.target.value;
+    const isValid = /^[0-9]{1,2}$/.test(newValue);
+  
+    if (isValid || newValue === '') {
+      setInputValue(newValue);
+    }
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); // Prevent the default form submission behavior
-    if (!inputValue.trim()) return; // Prevent adding empty or just whitespace circles
+    event.preventDefault(); 
+    if (!inputValue.trim()) return; 
 
     const newCircle: Circle = {
       id: circles.length, 
@@ -31,7 +36,7 @@ const CircleGrid: React.FC = () => {
       setExtractedNumber(null)
     }, 5200)
     
-    setInputValue(''); // Reset input value for the next entry
+    setInputValue(''); 
   };
 
   return (

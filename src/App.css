@@ -80,7 +80,7 @@
 }
 
 .extracted-number-text {
-  font-size: 64px;
+  font-size: 128px;
   color: aliceblue;
   animation: popExtractedText 5s ease-in-out forwards;
 
