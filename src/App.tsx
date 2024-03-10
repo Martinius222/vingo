@@ -9,8 +9,9 @@ interface Circle {
 
 const CircleGrid: React.FC = () => {
   const [circles, setCircles] = useState<Circle[]>([]);
-  const [extractedNumber, setExtractedNumber] = useState<Circle | null>()
+  const [currentNumber, setCurrentNumber] = useState<Circle | undefined>()
   const [inputValue, setInputValue] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('')
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
@@ -23,6 +24,11 @@ const CircleGrid: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); 
+    if (circles.find(number => number.number === inputValue)){
+        
+        setErrorMessage("Number seems to have already been extracted")
+        return
+      }
     if (!inputValue.trim()) return; 
 
     const newCircle: Circle = {
@@ -30,10 +36,10 @@ const CircleGrid: React.FC = () => {
       number: inputValue,
       className: 'circle', 
     };
-    setExtractedNumber(newCircle)
+    setCurrentNumber(newCircle)
     setTimeout(() => {
       setCircles([...circles, newCircle]);
-      setExtractedNumber(null)
+      setCurrentNumber(undefined)
     }, 5200)
     
     setInputValue(''); 
@@ -50,11 +56,12 @@ const CircleGrid: React.FC = () => {
           
         />
         <button className='submit-button' type='submit'>Add</button>
+        {errorMessage && <p className='error-message'>{errorMessage}</p>}
       </form>
-      {extractedNumber && 
+      {currentNumber && 
         <div className='extracted-number-container'>
           <div className='extracted-number'>
-            <p className='extracted-number-text'>{extractedNumber.number}</p>
+            <p className='extracted-number-text'>{currentNumber.number}</p>
           </div>
         </div>
       }

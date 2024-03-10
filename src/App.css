@@ -86,6 +86,12 @@
 
 }
 
+.error-message {
+  font-size: 16px;
+  color: red;
+  margin-left: 24px;
+}
+
 .circle {
   width: 75px; 
   height: 75px;
