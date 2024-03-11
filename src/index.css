@@ -13,7 +13,7 @@ html, body {
   margin: 0;
   padding: 0;
   width: 100%; 
-  background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+  background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
   min-height: 100vh;
   overflow: hidden;
 }
@@ -29,15 +29,3 @@ h1 {
   line-height: 1.1;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
