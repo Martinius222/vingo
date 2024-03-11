@@ -184,46 +184,22 @@
 	0% {
 		animation-timing-function: ease-in;
 		opacity: 1;
-		transform: translateX(1148px) rotate(360deg);
+		transform: translateX(1148px) rotate(360deg) scale(0.5);
 	}
 
-	14% {
+	15% {
 		opacity: 1;
+    transform: translateX(0px) rotate(0deg) scale(0.5);
 	}
 
-	30% {
-		animation-timing-function: ease-in;
-		transform: translateX(26px);
-	}
-
-	55% {
-		animation-timing-function: ease-in;
-		transform: translateX(13px);
-	}
-
-	62% {
-		animation-timing-function: ease-in;
-		transform: translateX(6.5px);
-	}
-
-	73% {
-		animation-timing-function: ease-in;
-		transform: translateX(4px);
-	}
-
-	15%,
-	45%,
-	65%,
-	77%,
-	88% {
-		animation-timing-function: ease-out;
-		transform: translateX(0px);
-	}
+  20% {
+    transform: scale(1);
+  }
 
 	80% {
 		animation-timing-function: ease-out;
 		opacity: 1;
-		transform: translateX(0px);
+		
 	}
 
   90% {
