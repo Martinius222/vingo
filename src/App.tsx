@@ -26,7 +26,7 @@ const CircleGrid: React.FC = () => {
     event.preventDefault(); 
     if (circles.find(number => number.number === inputValue)){
         
-        setErrorMessage("Number seems to have already been extracted")
+        setErrorMessage("Number seems to have already been extracted!")
         return
     } else {
       setErrorMessage(null)
@@ -49,16 +49,21 @@ const CircleGrid: React.FC = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className='input-container'>
-        <input
-          className='input-field'
-          type="text"
-          value={inputValue}
-          onChange={handleInputChange}
-          
-        />
-        <button className='submit-button' type='submit'>Add</button>
+      <h3 className='middle-logo'>VINgo</h3>
+      <form onSubmit={handleSubmit} className='nav-container'>
+        <div className='input-container'>
+          <input
+            className='input-field'
+            type="text"
+            value={inputValue}
+            onChange={handleInputChange}
+            
+          />
+          <button className='submit-button' type='submit'>Add</button>
+        </div>
         {errorMessage && <p className='error-message'>{errorMessage}</p>}
+        <h3 className='logo'>VINgo</h3>
+        
       </form>
       {currentNumber && 
         <div className='extracted-number-container'>
