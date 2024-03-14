@@ -1,0 +1,68 @@
+.settings-overlay {
+  z-index: 20;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.settings-modal {
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.setting-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.setting-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid black;
+  border-radius: 8px;
+  background-color: white;
+  width: fit-content;
+  padding: 0 8px;
+  height: 35px;
+  
+}
+
+.settings-input-field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: lightgrey;
+  height: 55px;
+  border-radius: 8px;
+  padding: 5px;
+  width: 100px;
+  font-size: 20px;
+  border: 3px solid black;
+  font-family: "Madimi One", sans-serif;
+  outline: none;
+
+}
+
+.close-button {
+  margin-top: 72px;
+  margin-right: 0px;
+}

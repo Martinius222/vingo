@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useSettings } from './context/SettingsContext';
+import { SettingsModal } from './elements/SettingsModal';
 import './App.css';
 
 interface Circle {
@@ -9,10 +11,13 @@ interface Circle {
 }
 
 const CircleGrid: React.FC = () => {
+  const { numberRange } = useSettings();
+
   const [circles, setCircles] = useState<Circle[]>([]);
   const [currentNumber, setCurrentNumber] = useState<Circle | undefined>()
   const [inputValue, setInputValue] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string | null>('')
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const savedCircles = localStorage.getItem('circles');
@@ -20,6 +25,13 @@ const CircleGrid: React.FC = () => {
       setCircles(JSON.parse(savedCircles));
     }
   }, []);
+
+  const toggleModal = () => setIsModalOpen(!isModalOpen);
+
+  const resetBoard = () => {
+    localStorage.removeItem('circles'); // Clear the specific item from local storage
+    setCircles([]); // Reset the circles array to an empty array
+  };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
@@ -32,12 +44,17 @@ const CircleGrid: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const inputNumber = parseInt(inputValue);
   if (circles.find(number => number.number === inputValue)) {
     setErrorMessage("Number seems to have already been extracted!");
     return;
+  } else if (isNaN(inputNumber) || inputNumber < 1 || inputNumber > numberRange) {
+      setErrorMessage(`Please enter a number from 1 to ${numberRange}`);
+      return;
   } else {
     setErrorMessage(null);
   }
+
   if (!inputValue.trim()) return;
 
   const newCircle: Circle = {
@@ -49,7 +66,7 @@ const CircleGrid: React.FC = () => {
   };
 
   setCurrentNumber(newCircle);
-  
+
   setTimeout(() => {
     const updatedCircles = [...circles, newCircle];
     updatedCircles.sort((a, b) => parseInt(a.number) - parseInt(b.number));
@@ -71,14 +88,16 @@ const CircleGrid: React.FC = () => {
             type="text"
             value={inputValue}
             onChange={handleInputChange}
+            disabled={currentNumber !== undefined}
             
           />
-          <button className='submit-button' type='submit'>Add</button>
+          <button className='submit-button' type='button' onClick={toggleModal}>Settings</button>
         </div>
         {errorMessage && <p className='error-message'>{errorMessage}</p>}
         <h3 className='logo'>VINgo</h3>
         
       </form>
+      <SettingsModal isOpen={isModalOpen} onClose={toggleModal} onReset={resetBoard} />
       {currentNumber && 
         <div className='extracted-number-container'>
           <div className='extracted-number'>
