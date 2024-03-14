@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 
 interface Circle {
@@ -13,6 +13,13 @@ const CircleGrid: React.FC = () => {
   const [currentNumber, setCurrentNumber] = useState<Circle | undefined>()
   const [inputValue, setInputValue] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string | null>('')
+
+  useEffect(() => {
+    const savedCircles = localStorage.getItem('circles');
+    if (savedCircles) {
+      setCircles(JSON.parse(savedCircles));
+    }
+  }, []);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
@@ -42,11 +49,12 @@ const CircleGrid: React.FC = () => {
   };
 
   setCurrentNumber(newCircle);
+  
   setTimeout(() => {
     const updatedCircles = [...circles, newCircle];
-    // Sort circles in ascending order based on their number property
     updatedCircles.sort((a, b) => parseInt(a.number) - parseInt(b.number));
     setCircles(updatedCircles);
+    localStorage.setItem('circles', JSON.stringify(updatedCircles));
     setCurrentNumber(undefined);
   }, 5200);
 
