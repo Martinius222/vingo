@@ -2,9 +2,10 @@ import { useState } from 'react';
 import './App.css';
 
 interface Circle {
-  id: number;
+  id: string;
   number: string;
   className: string;
+  animated: boolean;
 }
 
 const CircleGrid: React.FC = () => {
@@ -23,28 +24,33 @@ const CircleGrid: React.FC = () => {
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); 
-    if (circles.find(number => number.number === inputValue)){
-        
-        setErrorMessage("Number seems to have already been extracted!")
-        return
-    } else {
-      setErrorMessage(null)
-    }
-    if (!inputValue.trim()) return; 
+    event.preventDefault();
+  if (circles.find(number => number.number === inputValue)) {
+    setErrorMessage("Number seems to have already been extracted!");
+    return;
+  } else {
+    setErrorMessage(null);
+  }
+  if (!inputValue.trim()) return;
 
-    const newCircle: Circle = {
-      id: circles.length, 
-      number: inputValue,
-      className: 'circle', 
-    };
-    setCurrentNumber(newCircle)
-    setTimeout(() => {
-      setCircles([...circles, newCircle]);
-      setCurrentNumber(undefined)
-    }, 5200)
+  const newCircle: Circle = {
+    id: inputValue, 
+    number: inputValue,
+    className: 'circle',
+    animated: false
     
-    setInputValue(''); 
+  };
+
+  setCurrentNumber(newCircle);
+  setTimeout(() => {
+    const updatedCircles = [...circles, newCircle];
+    // Sort circles in ascending order based on their number property
+    updatedCircles.sort((a, b) => parseInt(a.number) - parseInt(b.number));
+    setCircles(updatedCircles);
+    setCurrentNumber(undefined);
+  }, 5200);
+
+  setInputValue('');
   };
 
   return (
@@ -74,8 +80,8 @@ const CircleGrid: React.FC = () => {
       }
       <div className='main-grid'>
         {circles.map((circle) => (
-          <div className='circle-container'>
-            <div key={circle.id} className={circle.className}>
+          <div key={circle.id} className='circle-container'>
+            <div  className={circle.className}>
               <p className='number'>{circle.number}</p>
             </div>
           </div>
